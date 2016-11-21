@@ -36,7 +36,7 @@ Vue.use(VueTinymce)
 </div>
 ```
 
-### Run example
+### Run example
 ```sh
 npm install
 npm run example
@@ -50,4 +50,3 @@ npm run build
 
 ###License
 https://opensource.org/licenses/Apache-2.0
-
