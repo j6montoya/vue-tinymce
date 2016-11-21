@@ -31,7 +31,7 @@
             if(typeof this.options == 'object'){
 
                 options = Object.assign({}, this.options)
-                if(!this.hasOwnProperty('selector')){
+                if(!this.options.hasOwnProperty('selector')){
                     options.selector = '#' + this.id
                 }
 

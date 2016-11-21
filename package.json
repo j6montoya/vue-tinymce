@@ -27,5 +27,5 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=webpack.config.js",
     "example": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot --config=webpack.config.dev.js"
   },
-  "version": "1.0.3"
+  "version": "1.0.4"
 }
