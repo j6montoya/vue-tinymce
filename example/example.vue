@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <h1>Example Vue 2.0 and Tinymce</h1>
-    <tinymce id="terms" content='<h1>Default content</h1>' :options='options' @change="changed"></tinymce>
-    <p v-html="h"></div>
+    <h1>Example Vue 2.1x and Tinymce</h1>
+    <tinymce id="terms" v-model="h" :content='content' :options='options' @change="changed"></tinymce>
+    <p v-html="h"></p>
   </div>
 </template>
 
@@ -13,13 +13,13 @@
     name: 'example',
     data () {
       return {
-        h: 'Text to bind'
+        h: 'Text to bind',
+        content: '<h1>Default content</h1>',
+        options: {}
       }
     },
     methods: {
-      changed (editor, content) {
-        this.h = content
-      }
+      changed (editor, content) {}
     }
   }
 </script>

@@ -1,11 +1,16 @@
-# Vue 2.0 Tinymce support
-Tinymce support on Vue 2.0
+# Vue 2.1x Tinymce support
+
+[![Latest Stable Version](https://img.shields.io/npm/v/vue-tinymce.svg?style=flat-square)](https://www.npmjs.com/package/vue-tinymce)
+[![NPM Downloads](https://img.shields.io/npm/dt/vue-tinymce.svg?style=flat-square)](https://www.npmjs.com/package/vue-tinymce)
+
+Tinymce support on Vue 2.1x
 
 ### Features
 
-- [x] Set default content
+- [x] Set default content and binding content
 - [x] Configurable options
 - [x] Event to change content
+- [x] v-model Support
 
 ### Install
 
@@ -15,24 +20,17 @@ Run the command below to install this package
 npm install vue-tinymce --save
 ```
 
-### Use on ES2015
+### Use
 ```javascript
 import Vue from 'vue'
 import VueTinymce from 'vue-tinymce'
 Vue.use(VueTinymce)
 ```
 
-### Use on Commonjs
-```javascript
-var Vue = require('vue')
-var VueTinymce = require('vue-tinymce')
-Vue.use(VueTinymce)
-```
-
 ### Vue template
 ```html
 <div id="app">
-  <tinymce id="editor" :options="options" @change="change" content='Default content'></tinymce>
+  <tinymce id="editor" v-model="editor" :options="options" @change="change" :content='content'></tinymce>
 </div>
 ```
 
