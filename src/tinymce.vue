@@ -2,54 +2,67 @@
     <textarea :id="id"></textarea>
 </template>
 
-<script>
+<script type="text/javascript">
 
     import Vue from 'vue'
+
     export default {
         name: "tinymce",
+        data() {
+            return {
+                tinymce: null
+            }
+        },
         props: {
             id: {
                 type: String,
-                required: true
+                default() {
+                    return 'tinymce-' + this._uid
+                }
             },
             options: Object,
             content: {
                 type: String,
-                default: ''
+                default: null
             },
             value: String
         },
         watch: {
-            content(){
-                tinymce.get(this.id).setContent(this.content)
+            value(newValue) {
+                if (this.tinymce != null && newValue !== this.tinymce.getContent())
+                    this.tinymce.setContent(newValue)
             }
         },
-        mounted () {
+        mounted() {
 
             //Initial configuration
             let options = {}
             let s1 = new Function()
             let config = (editor) => {
                 editor.on('NodeChange Change KeyUp', (e) => {
-                    this.$emit('input', tinymce.get(this.id).getContent())
-                    this.$emit('change', tinymce.get(this.id), tinymce.get(this.id).getContent())
+                    this.$emit('input', this.tinymce.getContent())
+                    this.$emit('change', this.tinymce, this.tinymce.getContent())
                 })
                 editor.on('init', (e) => {
-                    if(this.content != undefined) tinymce.get(this.id).setContent(this.content)
-                    this.$emit('input', this.content)
+                    this.tinymce = editor
+                    this.tinymce.setContent(this.value)
+                    if (this.content != undefined) {
+                        this.tinymce.setContent(this.content)
+                        this.$emit('input', this.content)
+                    }
                 })
             }
 
             //Default configuration
             s1 = (e) => config(e)
-            if(typeof this.options == 'object'){
+            if (typeof this.options == 'object') {
 
                 options = Object.assign({}, this.options)
-                if(!this.options.hasOwnProperty('selector')) options.selector = '#' + this.id
-                if(typeof this.options.setup == 'function'){
+                if (!this.options.hasOwnProperty('selector')) options.selector = '#' + this.id
+                if (typeof this.options.setup == 'function') {
                     s1 = (editor) => {
-                      config(editor)
-                      this.options.setup(editor)
+                        config(editor)
+                        this.options.setup(editor)
                     }
                 }
 
@@ -58,8 +71,9 @@
             options.setup = (editor) => s1(editor);
             Vue.nextTick(() => tinymce.init(options))
         },
-        beforeDestroy () {
+        beforeDestroy() {
             tinymce.execCommand('mceRemoveEditor', false, this.id)
         }
     }
+    
 </script>
